@@ -1,0 +1,27 @@
+{
+    "products": [{
+        "id" : 1,
+        "thumb":
+		{
+			"url": "images/thumbnails/0001.jpg",
+			"width": 32,
+			"height": 32
+		},
+        "description" : "some description",
+        "brand" : "marca",
+        "active" : true,
+        "inactivation_data" : "data"
+    },{
+        "id" : 2,
+        "thumb":
+		{
+			"url": "images/thumbnails/0002.jpg",
+			"width": 32,
+			"height": 32
+		},
+        "description" : "some description2",
+        "brand" : "marca2",
+        "active" : true,
+        "inactivation_data" : "data2"
+    }]
+}
