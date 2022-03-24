@@ -1,14 +1,15 @@
 import './Nav.css'
 import React from 'react' 
+import { Link } from 'react-router-dom';
 
 export default props =>
     <aside className="menu-area">
         <nav className="menu">
-            <a href="#/">
+            <Link to="/">
                 <i className='fa fa-home'></i> Início
-            </a>
-            <a href="#/products">
-                <i class="fa fa-diamond" aria-hidden="true"></i> Produtos
-            </a>
+            </ Link>
+            <Link to="/products">
+                <i class="fa fa-cart-plus" aria-hidden="true"></i> Produtos
+            </Link>
         </nav>
     </aside>

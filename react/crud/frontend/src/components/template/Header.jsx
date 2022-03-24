@@ -4,7 +4,7 @@ import React from 'react'
 export default props =>
     <header className="header d-none d-sm-flex flex-column">
         <h1 className="mt-3">
-            <i className={`fa fa-${props.icon}`}></i>{props.tittle}
+            <i className={`fa fa-${props.icon}`}></i>{props.title}
         </h1>
-        <p className="lead next-muted">{props.subtittle}</p>
+        <p className="lead next-muted">{props.subtitle}</p>
     </header>

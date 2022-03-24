@@ -3,6 +3,7 @@ import ProductCrud from '../components/product/ProductCrud'
 import Home from '../components/home/Home'
 import { Routes, Route } from "react-router-dom";
 
+
 export default props => (
     <Routes>
         <Route exact path="/" element={<Home/>} />         
