@@ -6,4 +6,5 @@ export default props =>
         <h1 className="mt-3">
             <i className={`fa fa-${props.icon}`}></i>{props.tittle}
         </h1>
+        <p className="lead next-muted">{props.subtittle}</p>
     </header>
