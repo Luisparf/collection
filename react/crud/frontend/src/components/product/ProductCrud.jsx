@@ -3,7 +3,7 @@ import Main from '../template/Main'
 import axios from 'axios'
 
 const headerProps = { // argumentos para o header
-    icon: 'cart-plus',
+    icon: 'cart-plus', // fonts awesome
     title: ' Produtos',
     subtitle: 'Incluir, Listar, Atualizar e Excluir'
 }
