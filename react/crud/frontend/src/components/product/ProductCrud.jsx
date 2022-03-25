@@ -11,7 +11,7 @@ const headerProps = { // argumentos para o header
 const baseUrl = 'http://localhost:3001/products'
 
 const initialState = { // estado inicial padrão para o produto
-    product: { description: '', brand: '', active: false, date: '', thumb:''},
+    product: { description: '', brand: '', active: false, date: ''},
     list: []
 }
 
@@ -40,9 +40,9 @@ export default class ProductCrud extends Component {
             })
     }
 
-    getUpdatedList(product){
+    getUpdatedList(product, add = true){
         const list = this.state.list.filter(p => p.id !== product.id) // gera uma nova lista filtrando a partir de produtos que tem o id diferente daquele recebido por parâmetro, ou seja remove 'product' de 'list'
-        if(product) list.unshift(product) // coloca product na primeira posição da lista
+        if(add) list.unshift(product) // coloca product na primeira posição da lista
         return list
     }
 
@@ -93,6 +93,7 @@ export default class ProductCrud extends Component {
                          </div>
                     </div>
 
+                    {/* Apenas mostra o menu para upload de imagem, mas não reproduz */}
                     <div className="col-12 col-md-6">
                         <div className="form-group">
                             <label>Imagem <i class="fa fa-upload" aria-hidden="true"></i> </label>
@@ -102,6 +103,7 @@ export default class ProductCrud extends Component {
                                     onChange={e => this.updateField(e)}/>
                          </div>
                     </div>
+                    
 
                     <div className="col-12 col-md-6">
                         <div className="form-group">
@@ -136,13 +138,13 @@ export default class ProductCrud extends Component {
     }
 
     load(product){ // carrega para edição
-        this.setState({ product})
+        this.setState({ product })
     }
 
-    remove(product){
+    remove(product){ // para aparecer a remoção tem q atualizar a página Oo
         axios.delete(`${baseUrl}/${product.id}`).then(resp => { // remove do backend
             // remove da lista local:
-            const list = this.list.filter(p => p !== product)
+            const list = this.getUpdatedList(product, false)
             this.setState({ list })
         })
     }
@@ -155,7 +157,8 @@ export default class ProductCrud extends Component {
                         <th>Descrição</th>
                         <th>Marca</th>
                         <th>Disponível</th>
-                        <th>Imagem</th>
+                       {/* <th>Imagem</th> */}
+                       <th>Data</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -176,7 +179,8 @@ export default class ProductCrud extends Component {
                     <td>{product.description}</td>
                     <td>{product.brand}</td>
                     <td>{product.active}</td>
-                    <td>{product.thumb}</td>
+                    {/* <td>{product.thumb}</td> */}
+                    <td>{product.date}</td>
                     <td>
                         <button className="btn btn-warning"
                             onClick={() => this.load(product)}>
