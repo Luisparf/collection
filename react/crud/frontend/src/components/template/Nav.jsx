@@ -11,5 +11,10 @@ export default props =>
             <Link to="/products">
                 <i class="fa fa-cart-plus" aria-hidden="true"></i> Produtos
             </Link>
+            <a href="https://github.com/Luisparf/collection">
+                <i class="fa fa-github " aria-hidden="true"></i> Visite
+            </a>
+        
         </nav>
+       
     </aside>
