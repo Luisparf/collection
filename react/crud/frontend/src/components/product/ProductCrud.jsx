@@ -11,7 +11,7 @@ const headerProps = { // argumentos para o header
 const baseUrl = 'http://localhost:3001/products'
 
 const initialState = { // estado inicial padrão para o produto
-    product: { thumb: '', description: '', brand: '', active: false, inactivation_data: ''},
+    product: { description: '', brand: '', active: false, date: '', thumb:''},
     list: []
 }
 
@@ -59,7 +59,7 @@ export default class ProductCrud extends Component {
                         <div className="form-group">
                             <label>Descrição </label>
                             <input type="text" className="form-control"
-                                    description="description"
+                                    name="description"
                                     value={this.state.product.description}
                                     onChange={e => this.updateField(e)}
                                     placeholder="Descrição do produto" />
@@ -70,7 +70,7 @@ export default class ProductCrud extends Component {
                         <div className="form-group">
                             <label>Marca </label>
                             <input type="text" className="form-control"
-                                    brand="brand"
+                                    name="brand"
                                     value={this.state.product.brand}
                                     onChange={e => this.updateField(e)}
                                     placeholder="Marca do produto" />
@@ -79,12 +79,35 @@ export default class ProductCrud extends Component {
                 
                     <div className="col-12 col-md-6">
                         <div className="form-group">
+                            <label>Data </label>
+                            <input type="date" className="form-control"
+                                    name="date"
+                                    value={this.state.product.date}
+                                    onChange={e => this.updateField(e)}/>
+                         </div>
+                    </div>
+
+                    <div className="col-12 col-md-6">
+                        <div className="form-group">
+                            <label>Imagem </label>
+                            <input type="file" className="form-control"
+                                    name="thumb"
+                                    value={this.state.product.thumb}
+                                    onChange={e => this.updateField(e)}/>
+                         </div>
+                    </div>
+
+                    <div className="col-12 col-md-6">
+                        <div className="form-group">
                             <label>Ativo </label>
                             <input type="checkbox" className="form-control"
+                                    name="active"
                                     value={this.state.product.active}
                                     onChange={e => this.updateField(e)}/>
                          </div>
                     </div>
+
+        
                 </div>
 
                 <hr/>
@@ -97,7 +120,7 @@ export default class ProductCrud extends Component {
 
                         <button className="btn btn-secondary ml-2"
                             onClick={e => this.clear(e)}>
-
+                            Cancelar
                         </button>
                     </div>
                 </div>
