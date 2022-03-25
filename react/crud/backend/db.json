@@ -3,7 +3,6 @@
         "id" : 1,
         "thumb":
 		{
-			"url": "images/thumbnails/0001.jpg",
 			"width": 32,
 			"height": 32
 		},
@@ -15,7 +14,6 @@
         "id" : 2,
         "thumb":
 		{
-			"url": "images/thumbnails/0002.jpg",
 			"width": 32,
 			"height": 32
 		},

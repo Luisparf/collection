@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, useState} from 'react'
 import Main from '../template/Main'
 import axios from 'axios'
 
@@ -30,20 +30,85 @@ export default class ProductCrud extends Component {
         axios[method] (url, product)
             .then(resp => {
                 const list = this.getUpdatedList(resp.data) // resp.data são os dados retornados pelo Json-server
-                this.setState({ user: initialState.user, list}) // depois de incluir ou atualizar usuario o formulário é limpo
+                this.setState({ product: initialState.product, list}) // depois de incluir ou atualizar usuario o formulário é limpo
             })
     }
-    
-    getUpdatedList(user){
-        const list = this.state.list.filter(u => u.id !== user.id) // gera uma nova lista filtrando a partir de usuarios que tem o id diferente daquele recebido por parâmetro, ou seja remove 'user' de 'list'
-        list.unshift(user) // coloca user na primeira posição da lista
+
+    getUpdatedList(product){
+        const list = this.state.list.filter(u => u.id !== product.id) // gera uma nova lista filtrando a partir de produtos que tem o id diferente daquele recebido por parâmetro, ou seja remove 'product' de 'list'
+        list.unshift(product) // coloca product na primeira posição da lista
         return list
+    }
+
+    updateField(event){
+         const product = {...this.state.product}
+         product[event.target.name] = event.target.value
+         // product[event.target.thumb] = event.target.src = '/react/crud/frontend/src/assets/imgs/productGroupColor_1001_BiancoCovelano1.webp'
+         this.setState({product})
+    }
+
+   
+    renderForm(){
+
+        // const [thumb, setThumb] = useState('');
+
+        return (
+            <div className="form">
+                <div className="row">
+                    <div className="col-12 col-md-6">
+                        <div className="form-group">
+                            <label>Descrição </label>
+                            <input type="text" className="form-control"
+                                    description="description"
+                                    value={this.state.product.description}
+                                    onChange={e => this.updateField(e)}
+                                    placeholder="Descrição do produto" />
+                         </div>
+                    </div>
+
+                    <div className="col-12 col-md-6">
+                        <div className="form-group">
+                            <label>Marca </label>
+                            <input type="text" className="form-control"
+                                    brand="brand"
+                                    value={this.state.product.brand}
+                                    onChange={e => this.updateField(e)}
+                                    placeholder="Marca do produto" />
+                         </div>
+                    </div>
+                
+                    <div className="col-12 col-md-6">
+                        <div className="form-group">
+                            <label>Ativo </label>
+                            <input type="checkbox" className="form-control"
+                                    value={this.state.product.active}
+                                    onChange={e => this.updateField(e)}/>
+                         </div>
+                    </div>
+                </div>
+
+                <hr/>
+                <div className="row">
+                    <div className="col-12 d-flex justify-content-end">
+                        <button className="btn btn-primary"
+                            onClick={e => this.save(e)} >
+                            Salvar
+                        </button>
+
+                        <button className="btn btn-secondary ml-2"
+                            onClick={e => this.clear(e)}>
+
+                        </button>
+                    </div>
+                </div>
+            </div>
+        )
     }
 
     render(){
         return (
             <Main {...headerProps}>
-                Cadastro de produtos
+                {this.renderForm()}
             </Main>
         )
     }
