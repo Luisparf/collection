@@ -19,6 +19,12 @@ export default class ProductCrud extends Component {
 
     state = {...initialState} // 
 
+    componentWillMount(){
+        axios(baseUrl).then(resp =>{
+            this.setState({ list: resp.data})
+        })
+    }
+
     clear(){ // limpar o estado é seta-lo como inicial
         this.setState({ product: initialState.product})
     }
@@ -35,8 +41,8 @@ export default class ProductCrud extends Component {
     }
 
     getUpdatedList(product){
-        const list = this.state.list.filter(u => u.id !== product.id) // gera uma nova lista filtrando a partir de produtos que tem o id diferente daquele recebido por parâmetro, ou seja remove 'product' de 'list'
-        list.unshift(product) // coloca product na primeira posição da lista
+        const list = this.state.list.filter(p => p.id !== product.id) // gera uma nova lista filtrando a partir de produtos que tem o id diferente daquele recebido por parâmetro, ou seja remove 'product' de 'list'
+        if(product) list.unshift(product) // coloca product na primeira posição da lista
         return list
     }
 
@@ -48,7 +54,7 @@ export default class ProductCrud extends Component {
     }
 
    
-    renderForm(){
+    renderForm(){ // o ideal seria refatorar...
 
         // const [thumb, setThumb] = useState('');
 
@@ -57,7 +63,7 @@ export default class ProductCrud extends Component {
                 <div className="row">
                     <div className="col-12 col-md-6">
                         <div className="form-group">
-                            <label>Descrição </label>
+                            <label>Descrição <i class="fa fa-clipboard" aria-hidden="true"></i> </label>
                             <input type="text" className="form-control"
                                     name="description"
                                     value={this.state.product.description}
@@ -68,7 +74,7 @@ export default class ProductCrud extends Component {
 
                     <div className="col-12 col-md-6">
                         <div className="form-group">
-                            <label>Marca </label>
+                            <label>Marca <i class="fa fa-tag" ></i></label>
                             <input type="text" className="form-control"
                                     name="brand"
                                     value={this.state.product.brand}
@@ -79,7 +85,7 @@ export default class ProductCrud extends Component {
                 
                     <div className="col-12 col-md-6">
                         <div className="form-group">
-                            <label>Data </label>
+                            <label>Data <i class="fa fa-calendar" aria-hidden="true"></i></label>
                             <input type="date" className="form-control"
                                     name="date"
                                     value={this.state.product.date}
@@ -89,7 +95,7 @@ export default class ProductCrud extends Component {
 
                     <div className="col-12 col-md-6">
                         <div className="form-group">
-                            <label>Imagem </label>
+                            <label>Imagem <i class="fa fa-upload" aria-hidden="true"></i> </label>
                             <input type="file" className="form-control"
                                     name="thumb"
                                     value={this.state.product.thumb}
@@ -99,11 +105,12 @@ export default class ProductCrud extends Component {
 
                     <div className="col-12 col-md-6">
                         <div className="form-group">
-                            <label>Ativo </label>
+                            <label>Ativo <i className="fa fa-thumb-tack" aria-hidden="true"></i></label>
                             <input type="checkbox" className="form-control"
                                     name="active"
                                     value={this.state.product.active}
                                     onChange={e => this.updateField(e)}/>
+                            
                          </div>
                     </div>
 
@@ -128,10 +135,71 @@ export default class ProductCrud extends Component {
         )
     }
 
-    render(){
+    load(product){ // carrega para edição
+        this.setState({ product})
+    }
+
+    remove(product){
+        axios.delete(`${baseUrl}/${product.id}`).then(resp => { // remove do backend
+            // remove da lista local:
+            const list = this.list.filter(p => p !== product)
+            this.setState({ list })
+        })
+    }
+
+    renderTable(){
+        return(
+            <table className="table mt-4">
+                <thead>
+                    <tr>
+                        <th>Descrição</th>
+                        <th>Marca</th>
+                        <th>Disponível</th>
+                        <th>Imagem</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {this.renderRows()}
+                </tbody>
+                
+            </table>
+        )
+    }
+
+    renderRows(){
+        return this.state.list.map(product => {
+            return(
+                <tr key={product.id}>
+                   
+                    <td>{product.description}</td>
+                    <td>{product.brand}</td>
+                    <td>{product.active}</td>
+                    <td>{product.thumb}</td>
+                    <td>
+                        <button className="btn btn-warning"
+                            onClick={() => this.load(product)}>
+                             <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </button>
+                        <button class="btn btn-danger ml-2"
+                            onClick={() => this.remove(product)}>
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </button>
+                    </td>
+
+                </tr>
+            )
+
+        })
+    }
+
+    render(){   
+        // console.log(this.state.list)
         return (
             <Main {...headerProps}>
                 {this.renderForm()}
+                {this.renderTable()}
             </Main>
         )
     }

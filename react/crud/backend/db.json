@@ -1,24 +1,27 @@
 {
   "products": [
     {
-      "description": "mármore",
-      "brand": "portobello",
-      "active": false,
+      "description": "Revestimento Folk Grey",
+      "brand": "Portobello",
+      "active": "false",
+      "date": "2022-07-22",
+      "thumb": "C:\\fakepath\\folk-grey-60x120-ext_46436.webp",
       "id": 1
     },
     {
-      "description": "",
-      "brand": "",
+      "description": "Revestimento Folk Ice",
+      "brand": "Portobello",
       "active": false,
-      "date": "2022-03-02",
+      "date": "2022-07-25",
+      "thumb": "C:\\fakepath\\folk-ice-60x120-nat_46464.webp",
       "id": 2
     },
     {
-      "description": "Porcelanateria ",
+      "description": "Revestimento Folk Desert",
       "brand": "Portobello",
-      "active": "false",
-      "date": "2022-03-25",
-      "thumb": "C:\\fakepath\\productGroupColor_1922_pbl_amb3d_living_stelle_carbone_80x80_nat_ret.webp",
+      "active": false,
+      "date": "2022-07-27",
+      "thumb": "C:\\fakepath\\folk-desert-60x120-ext_46425.webp",
       "id": 3
     }
   ]
